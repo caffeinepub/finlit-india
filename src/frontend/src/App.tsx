@@ -29,6 +29,12 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
+const Banking = lazy(() => import("./pages/Banking"));
+const DigitalPayments = lazy(() => import("./pages/DigitalPayments"));
+const SavingsInvesting = lazy(() => import("./pages/SavingsInvesting"));
+const CreditLoans = lazy(() => import("./pages/CreditLoans"));
+const FraudSecurity = lazy(() => import("./pages/FraudSecurity"));
+const TaxesPage = lazy(() => import("./pages/Taxes"));
 
 function PageLoader() {
   return (
@@ -128,6 +134,36 @@ const signupRoute = createRoute({
   path: "/signup",
   component: Signup,
 });
+const bankingRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/banking",
+  component: Banking,
+});
+const digitalPaymentsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/digital-payments",
+  component: DigitalPayments,
+});
+const savingsInvestingRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/savings-investing",
+  component: SavingsInvesting,
+});
+const creditLoansRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/credit-loans",
+  component: CreditLoans,
+});
+const fraudSecurityRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/fraud-security",
+  component: FraudSecurity,
+});
+const taxesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/taxes",
+  component: TaxesPage,
+});
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
@@ -144,6 +180,12 @@ const routeTree = rootRoute.addChildren([
   adminRoute,
   loginRoute,
   signupRoute,
+  bankingRoute,
+  digitalPaymentsRoute,
+  savingsInvestingRoute,
+  creditLoansRoute,
+  fraudSecurityRoute,
+  taxesRoute,
 ]);
 
 const router = createRouter({ routeTree });

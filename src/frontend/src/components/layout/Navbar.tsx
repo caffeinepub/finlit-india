@@ -3,10 +3,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link, useLocation } from "@tanstack/react-router";
 import {
+  BookOpen,
+  ChevronDown,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -33,11 +36,22 @@ const NAV_LINKS = [
   { label: "Contact", to: "/contact" as const },
 ];
 
+const LEARN_LINKS = [
+  { label: "Banking System", to: "/banking" as const },
+  { label: "Digital Payments", to: "/digital-payments" as const },
+  { label: "Saving & Investing", to: "/savings-investing" as const },
+  { label: "Credit & Loans", to: "/credit-loans" as const },
+  { label: "Fraud & Security", to: "/fraud-security" as const },
+  { label: "Taxes", to: "/taxes" as const },
+];
+
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useThemeContext();
   const { user, logout, isAuthenticated } = useAuth();
   const location = useLocation();
+
+  const isLearnActive = LEARN_LINKS.some((l) => location.pathname === l.to);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-dark border-b border-white/10 shadow-lg">
@@ -78,6 +92,33 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Learn dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className={`flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isLearnActive
+                      ? "text-white bg-white/10"
+                      : "text-white/70 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <BookOpen className="h-3.5 w-3.5" />
+                  Learn
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-52">
+                {LEARN_LINKS.map((link) => (
+                  <DropdownMenuItem key={link.to} asChild>
+                    <Link to={link.to} className="cursor-pointer">
+                      {link.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Right utilities */}
@@ -125,6 +166,7 @@ export function Navbar() {
                       </Link>
                     </DropdownMenuItem>
                   )}
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={logout}
                     className="text-destructive flex items-center gap-2"
@@ -166,6 +208,24 @@ export function Navbar() {
         {mobileOpen && (
           <div className="md:hidden border-t border-white/10 py-3">
             {NAV_LINKS.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                data-ocid="nav.link"
+                onClick={() => setMobileOpen(false)}
+                className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors mb-1 ${
+                  location.pathname === link.to
+                    ? "text-white bg-white/10"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="px-3 py-1.5 text-white/40 text-xs font-semibold uppercase tracking-wider mt-2">
+              Learn
+            </div>
+            {LEARN_LINKS.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
