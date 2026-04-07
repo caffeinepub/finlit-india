@@ -13,6 +13,7 @@ import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
 import { ScrollProgressBar } from "./components/layout/ScrollProgressBar";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
 const Home = lazy(() => import("./pages/Home"));
@@ -35,6 +36,9 @@ const SavingsInvesting = lazy(() => import("./pages/SavingsInvesting"));
 const CreditLoans = lazy(() => import("./pages/CreditLoans"));
 const FraudSecurity = lazy(() => import("./pages/FraudSecurity"));
 const TaxesPage = lazy(() => import("./pages/Taxes"));
+const TravelFinance = lazy(() => import("./pages/TravelFinance"));
+const LearningPath = lazy(() => import("./pages/LearningPath"));
+const Sitemap = lazy(() => import("./pages/Sitemap"));
 
 function PageLoader() {
   return (
@@ -164,6 +168,21 @@ const taxesRoute = createRoute({
   path: "/taxes",
   component: TaxesPage,
 });
+const travelRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/travel",
+  component: TravelFinance,
+});
+const learningRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/learning",
+  component: LearningPath,
+});
+const sitemapRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/sitemap",
+  component: Sitemap,
+});
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
@@ -186,6 +205,9 @@ const routeTree = rootRoute.addChildren([
   creditLoansRoute,
   fraudSecurityRoute,
   taxesRoute,
+  travelRoute,
+  learningRoute,
+  sitemapRoute,
 ]);
 
 const router = createRouter({ routeTree });
@@ -200,8 +222,10 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <RouterProvider router={router} />
-        <Toaster position="top-right" richColors />
+        <LanguageProvider>
+          <RouterProvider router={router} />
+          <Toaster position="top-right" richColors />
+        </LanguageProvider>
       </AuthProvider>
     </ThemeProvider>
   );

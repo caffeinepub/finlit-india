@@ -3,6 +3,7 @@ import {
   BookOpen,
   Building2,
   Calculator,
+  ExternalLink,
   FileText,
   Globe,
   Landmark,
@@ -75,6 +76,81 @@ const ITR_FORMS = [
     form: "ITR-4 (Sugam)",
     for: "Presumptive income scheme for small businesses/professionals",
     icon: Calculator,
+  },
+];
+
+const TAX_PORTALS = [
+  {
+    name: "Income Tax e-Filing",
+    desc: "File your ITR, check refund status, Form 26AS & AIS, and link Aadhaar-PAN",
+    url: "https://www.incometax.gov.in",
+    badge: "ITR Filing",
+    badgeColor:
+      "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+    highlight: true,
+  },
+  {
+    name: "GST Portal",
+    desc: "GST registration, return filing, tax payment, and refund claims",
+    url: "https://www.gst.gov.in",
+    badge: "GST",
+    badgeColor:
+      "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
+    highlight: false,
+  },
+  {
+    name: "PAN Application — NSDL",
+    desc: "Apply for new PAN card or update existing PAN details online",
+    url: "https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html",
+    badge: "PAN Card",
+    badgeColor:
+      "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+    highlight: false,
+  },
+  {
+    name: "PAN Application — UTIITSL",
+    desc: "Alternative portal for PAN card application and corrections",
+    url: "https://www.utiitsl.com/UTIITSL_SITE/pan",
+    badge: "PAN Card",
+    badgeColor:
+      "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+    highlight: false,
+  },
+  {
+    name: "TDS — TRACES Portal",
+    desc: "View Form 16, Form 26AS, TDS certificates and deductor information",
+    url: "https://www.tdscpc.gov.in",
+    badge: "TDS",
+    badgeColor:
+      "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+    highlight: false,
+  },
+  {
+    name: "Aadhaar — UIDAI",
+    desc: "Link Aadhaar with PAN, update Aadhaar details, and download e-Aadhaar",
+    url: "https://uidai.gov.in",
+    badge: "Aadhaar",
+    badgeColor:
+      "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300",
+    highlight: false,
+  },
+  {
+    name: "Tax Saving — ELSS Funds",
+    desc: "Find SEBI-registered ELSS mutual funds for Section 80C tax deductions",
+    url: "https://www.amfiindia.com/investor-corner/knowledge-center/elss.html",
+    badge: "Tax Saving",
+    badgeColor:
+      "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300",
+    highlight: false,
+  },
+  {
+    name: "EPF — EPFO Member Portal",
+    desc: "Check PF balance, download passbook, and track EPF claims online",
+    url: "https://unifiedportal-mem.epfindia.gov.in",
+    badge: "EPF / PF",
+    badgeColor:
+      "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300",
+    highlight: false,
   },
 ];
 
@@ -218,10 +294,9 @@ export default function Taxes() {
                       PAN (Permanent Account Number)
                     </strong>{" "}
                     is a 10-character alphanumeric identifier (e.g., ABCDE1234F)
-                    issued by the Income Tax Department. The 5th character is
-                    always the first letter of your surname.
+                    issued by the Income Tax Department.
                   </p>
-                  <div className="grid sm:grid-cols-2 gap-2">
+                  <div className="grid sm:grid-cols-2 gap-2 mb-4">
                     {[
                       "Mandatory for income tax filing",
                       "Required for bank accounts and investments",
@@ -238,6 +313,24 @@ export default function Taxes() {
                         {p}
                       </div>
                     ))}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <a
+                      href="https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors"
+                    >
+                      <ExternalLink className="h-3 w-3" /> Apply via NSDL
+                    </a>
+                    <a
+                      href="https://www.utiitsl.com/UTIITSL_SITE/pan"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold bg-muted text-foreground px-3 py-1.5 rounded-lg hover:bg-muted/70 transition-colors"
+                    >
+                      <ExternalLink className="h-3 w-3" /> Apply via UTIITSL
+                    </a>
                   </div>
                 </div>
               </div>
@@ -256,11 +349,10 @@ export default function Taxes() {
               GST — Goods & Services Tax
             </h2>
             <p className="text-sm text-muted-foreground mb-5">
-              GST replaced over 17 indirect taxes in 2017 (VAT, Service Tax,
-              Excise etc.) with a single unified tax system. It applies to most
-              goods and services consumed in India.
+              GST replaced over 17 indirect taxes in 2017 with a single unified
+              tax system.
             </p>
-            <div className="space-y-3">
+            <div className="space-y-3 mb-4">
               {GST_SLABS.map((slab) => (
                 <div
                   key={slab.rate}
@@ -275,6 +367,15 @@ export default function Taxes() {
                 </div>
               ))}
             </div>
+            <a
+              href="https://www.gst.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+            >
+              <ExternalLink className="h-4 w-4" /> GST Official Portal —
+              gst.gov.in
+            </a>
           </motion.div>
 
           {/* Why tax matters */}
@@ -341,6 +442,7 @@ export default function Taxes() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
+            className="mb-12"
           >
             <h2 className="font-display text-2xl font-bold text-foreground mb-4">
               Filing Your ITR — The Basics
@@ -365,7 +467,7 @@ export default function Taxes() {
                 </div>
               ))}
             </div>
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 flex gap-3">
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 flex gap-3 mb-4">
               <Lightbulb className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
               <div className="text-sm text-blue-800 dark:text-blue-200">
                 <strong>Documents you'll need:</strong> PAN card, Aadhaar, Form
@@ -373,6 +475,74 @@ export default function Taxes() {
                 and your AIS/TIS available at incometax.gov.in. Filing online
                 takes 15–30 minutes for most salaried individuals.
               </div>
+            </div>
+            <a
+              href="https://www.incometax.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              <ExternalLink className="h-4 w-4" /> File ITR Now —
+              incometax.gov.in
+            </a>
+          </motion.div>
+
+          {/* Official Tax Portals */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-display text-2xl font-bold text-foreground mb-2">
+              Official Tax & Finance Portals
+            </h2>
+            <p className="text-sm text-muted-foreground mb-5">
+              All government-verified links for tax filing, PAN, GST, TDS, and
+              more.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {TAX_PORTALS.map((portal) => (
+                <a
+                  key={portal.name}
+                  href={portal.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group border rounded-xl p-4 flex items-start gap-3 transition-all hover:shadow-md ${
+                    portal.highlight
+                      ? "bg-primary/5 border-primary/30 hover:border-primary"
+                      : "bg-card border-border hover:border-primary/40"
+                  }`}
+                >
+                  <div
+                    className={`rounded-lg p-2 shrink-0 transition-colors ${
+                      portal.highlight
+                        ? "bg-primary/20 group-hover:bg-primary/30"
+                        : "bg-primary/10 group-hover:bg-primary/20"
+                    }`}
+                  >
+                    <ExternalLink className="h-4 w-4 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <h3 className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">
+                        {portal.name}
+                      </h3>
+                      <span
+                        className={`text-xs px-1.5 py-0.5 rounded font-medium shrink-0 ${portal.badgeColor}`}
+                      >
+                        {portal.badge}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {portal.desc}
+                    </p>
+                    <p className="text-xs text-primary mt-1.5 font-medium">
+                      {portal.url.replace("https://", "")}
+                    </p>
+                  </div>
+                </a>
+              ))}
             </div>
           </motion.div>
         </div>

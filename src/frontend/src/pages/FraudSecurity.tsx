@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   BadgeCheck,
   CheckSquare,
+  ExternalLink,
   Key,
   Phone,
   PhoneOff,
@@ -80,26 +81,91 @@ const REPORT_CHANNELS = [
   {
     name: "National Cyber Crime Helpline",
     contact: "1930",
+    url: null,
     desc: "Call immediately if money is deducted fraudulently. Quick action increases recovery chances.",
     icon: Phone,
+    badge: "Call Now",
+    badgeColor: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
   },
   {
     name: "Cyber Crime Portal",
     contact: "cybercrime.gov.in",
+    url: "https://cybercrime.gov.in",
     desc: "File online complaints for financial fraud, phishing, and social media crimes.",
     icon: Shield,
+    badge: "Official Gov",
+    badgeColor:
+      "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
   },
   {
     name: "RBI Banking Ombudsman",
     contact: "bankingombudsman.rbi.org.in",
+    url: "https://bankingombudsman.rbi.org.in",
     desc: "Escalate unresolved bank complaints after 30 days of filing with the bank.",
     icon: BadgeCheck,
+    badge: "RBI Portal",
+    badgeColor:
+      "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
   },
   {
     name: "Local Police (Cyber Cell)",
     contact: "Nearest police station",
+    url: null,
     desc: "Register an FIR for fraud. Ask specifically for the Cyber Crime Cell.",
     icon: AlertOctagon,
+    badge: "In Person",
+    badgeColor:
+      "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
+  },
+];
+
+const SECURITY_PORTALS = [
+  {
+    name: "Cyber Crime Portal — MHA",
+    desc: "File complaints for financial fraud, online harassment, and social media crimes. Official MHA platform.",
+    url: "https://cybercrime.gov.in",
+    badge: "Govt",
+    badgeColor:
+      "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+  },
+  {
+    name: "RBI Banking Ombudsman",
+    desc: "Escalate unresolved bank complaints to the RBI ombudsman after 30 days.",
+    url: "https://bankingombudsman.rbi.org.in",
+    badge: "RBI",
+    badgeColor:
+      "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+  },
+  {
+    name: "RBI Official Website",
+    desc: "Consumer protection guidelines, authorized entities list, and fraud alerts from the Reserve Bank of India.",
+    url: "https://www.rbi.org.in",
+    badge: "Regulator",
+    badgeColor:
+      "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300",
+  },
+  {
+    name: "SEBI SCORES Portal",
+    desc: "Lodge complaints against stock brokers, mutual funds, and other SEBI-regulated entities.",
+    url: "https://scores.sebi.gov.in",
+    badge: "SEBI",
+    badgeColor:
+      "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+  },
+  {
+    name: "NPCI — UPI Dispute Portal",
+    desc: "Raise UPI payment disputes and track resolution for transactions on any UPI app.",
+    url: "https://www.npci.org.in",
+    badge: "UPI",
+    badgeColor:
+      "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300",
+  },
+  {
+    name: "IT Act / Cyber Law India",
+    desc: "Understand your legal rights under the Information Technology Act, 2000 for cyber offences.",
+    url: "https://www.meity.gov.in/content/cyber-laws",
+    badge: "Legal",
+    badgeColor: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
   },
 ];
 
@@ -238,23 +304,90 @@ export default function FraudSecurity() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: i * 0.07 }}
                   viewport={{ once: true }}
-                  className="bg-card border border-border rounded-xl p-5"
+                  className="bg-card border border-border rounded-xl p-5 flex flex-col gap-3"
                 >
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-primary/10 rounded-xl p-2.5">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary/10 rounded-xl p-2.5 shrink-0">
                       <ch.icon className="h-5 w-5 text-primary" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground text-sm">
-                        {ch.name}
-                      </h3>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                        <h3 className="font-semibold text-foreground text-sm">
+                          {ch.name}
+                        </h3>
+                        <span
+                          className={`text-xs px-1.5 py-0.5 rounded font-medium shrink-0 ${ch.badgeColor}`}
+                        >
+                          {ch.badge}
+                        </span>
+                      </div>
                       <span className="text-primary font-bold text-sm">
                         {ch.contact}
                       </span>
                     </div>
                   </div>
                   <p className="text-xs text-muted-foreground">{ch.desc}</p>
+                  {ch.url && (
+                    <a
+                      href={ch.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline mt-auto"
+                    >
+                      <ExternalLink className="h-3 w-3" /> Visit Website
+                    </a>
+                  )}
                 </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Official Security Portals */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h2 className="font-display text-2xl font-bold text-foreground mb-2">
+              Official Security & Complaint Portals
+            </h2>
+            <p className="text-sm text-muted-foreground mb-5">
+              Trusted government and regulatory websites for reporting fraud and
+              getting help.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {SECURITY_PORTALS.map((portal) => (
+                <a
+                  key={portal.name}
+                  href={portal.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-card border border-border hover:border-primary/40 rounded-xl p-4 flex items-start gap-3 transition-all hover:shadow-md"
+                >
+                  <div className="bg-primary/10 rounded-lg p-2 shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <ExternalLink className="h-4 w-4 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <h3 className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">
+                        {portal.name}
+                      </h3>
+                      <span
+                        className={`text-xs px-1.5 py-0.5 rounded font-medium shrink-0 ${portal.badgeColor}`}
+                      >
+                        {portal.badge}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {portal.desc}
+                    </p>
+                    <p className="text-xs text-primary mt-1.5 font-medium">
+                      {portal.url.replace("https://", "")}
+                    </p>
+                  </div>
+                </a>
               ))}
             </div>
           </motion.div>

@@ -1,7 +1,6 @@
 import {
-  AlertTriangle,
   ArrowRightLeft,
-  CheckCircle2,
+  ExternalLink,
   QrCode,
   Shield,
   Smartphone,
@@ -15,31 +14,121 @@ import { PageHeader } from "../components/common/PageHeader";
 const APPS = [
   {
     name: "PhonePe",
+    tagline: "India's #1 UPI app",
     color: "bg-purple-100 dark:bg-purple-900/30",
     textColor: "text-purple-700 dark:text-purple-300",
-    feature: "Market leader, insurance & gold buying built-in",
+    borderColor: "border-purple-200 dark:border-purple-700",
+    feature: "Market leader · Insurance & gold buying built-in · Mutual funds",
     users: "500M+ users",
+    url: "https://www.phonepe.com",
+    playStore: "https://play.google.com/store/apps/details?id=com.phonepe.app",
+    appStore:
+      "https://apps.apple.com/in/app/phonepe-upi-payment-app/id1170893582",
   },
   {
     name: "Google Pay",
+    tagline: "Simple, secure, fast",
     color: "bg-blue-100 dark:bg-blue-900/30",
     textColor: "text-blue-700 dark:text-blue-300",
-    feature: "Simple UX, rewards & cashback on transactions",
+    borderColor: "border-blue-200 dark:border-blue-700",
+    feature: "Simple UX · Rewards & cashback · Bill payments",
     users: "150M+ users",
+    url: "https://pay.google.com/intl/en_in/about/",
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user",
+    appStore: "https://apps.apple.com/in/app/google-pay-save-pay/id1193357600",
   },
   {
     name: "Paytm",
+    tagline: "Wallet + UPI pioneer",
     color: "bg-sky-100 dark:bg-sky-900/30",
     textColor: "text-sky-700 dark:text-sky-300",
-    feature: "Wallet + UPI, first mover in digital payments",
+    borderColor: "border-sky-200 dark:border-sky-700",
+    feature: "Wallet + UPI · First mover in digital payments · Recharges",
     users: "300M+ users",
+    url: "https://paytm.com",
+    playStore: "https://play.google.com/store/apps/details?id=net.one97.paytm",
+    appStore:
+      "https://apps.apple.com/in/app/paytm-secure-upi-payments/id473941634",
   },
   {
     name: "BHIM",
+    tagline: "Government-backed UPI",
     color: "bg-green-100 dark:bg-green-900/30",
     textColor: "text-green-700 dark:text-green-300",
-    feature: "Government-backed, works on basic phones too",
-    users: "Official NPCI app",
+    borderColor: "border-green-200 dark:border-green-700",
+    feature: "NPCI-official · Works on basic phones · All banks supported",
+    users: "NPCI Official",
+    url: "https://www.bhimupi.org.in",
+    playStore:
+      "https://play.google.com/store/apps/details?id=in.org.npci.upiapp",
+    appStore: "https://apps.apple.com/in/app/bhim/id1200315258",
+  },
+];
+
+const BANKING_APPS = [
+  {
+    bank: "SBI",
+    app: "YONO SBI",
+    desc: "Full banking, investments, loans & insurance in one app",
+    url: "https://www.onlinesbi.sbi/",
+    color: "text-blue-700 dark:text-blue-300",
+    bg: "bg-blue-50 dark:bg-blue-900/20",
+    border: "border-blue-200 dark:border-blue-800",
+  },
+  {
+    bank: "HDFC",
+    app: "HDFC NetBanking",
+    desc: "Fast transfers, credit card management & investments",
+    url: "https://netbanking.hdfcbank.com/",
+    color: "text-red-700 dark:text-red-300",
+    bg: "bg-red-50 dark:bg-red-900/20",
+    border: "border-red-200 dark:border-red-800",
+  },
+  {
+    bank: "ICICI",
+    app: "iMobile Pay",
+    desc: "Works even for non-ICICI customers · Open account instantly",
+    url: "https://www.icicibank.com/personal-banking/insta-banking/mobile-banking/imobile-pay",
+    color: "text-orange-700 dark:text-orange-300",
+    bg: "bg-orange-50 dark:bg-orange-900/20",
+    border: "border-orange-200 dark:border-orange-800",
+  },
+  {
+    bank: "Kotak",
+    app: "Kotak 811",
+    desc: "Zero-balance 811 account, instant activation via app",
+    url: "https://www.kotak.com/en/personal-banking/digital-banking/811.html",
+    color: "text-red-800 dark:text-red-200",
+    bg: "bg-rose-50 dark:bg-rose-900/20",
+    border: "border-rose-200 dark:border-rose-800",
+  },
+];
+
+const REGULATOR_LINKS = [
+  {
+    name: "NPCI — UPI Official",
+    desc: "National Payments Corporation of India — the body that built UPI",
+    url: "https://www.npci.org.in",
+    badge: "Regulator",
+  },
+  {
+    name: "RBI — Digital Payments",
+    desc: "RBI guidelines, circular updates and payment system regulations",
+    url: "https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=2009",
+    badge: "Regulator",
+  },
+  {
+    name: "Cyber Crime Helpline",
+    desc: "Report digital payment fraud 24×7 at the national cybercrime portal",
+    url: "https://cybercrime.gov.in",
+    badge: "Safety",
+  },
+  {
+    name: "Digital India",
+    desc: "Government's initiative to make India a digitally empowered nation",
+    url: "https://www.digitalindia.gov.in",
+    badge: "Gov",
   },
 ];
 
@@ -173,11 +262,15 @@ export default function DigitalPayments() {
               </div>
             </div>
 
-            {/* Apps grid */}
-            <h2 className="font-display text-2xl font-bold text-foreground mb-4">
+            {/* UPI Apps with official links */}
+            <h2 className="font-display text-2xl font-bold text-foreground mb-2">
               Popular Payment Apps
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            <p className="text-sm text-muted-foreground mb-4">
+              Click any app to visit the official website or download from
+              official stores.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4 mb-10">
               {APPS.map((app, i) => (
                 <motion.div
                   key={app.name}
@@ -185,24 +278,109 @@ export default function DigitalPayments() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: i * 0.07 }}
                   viewport={{ once: true }}
-                  className="bg-card border border-border rounded-xl p-4 shadow-card"
+                  className={`bg-card border ${app.borderColor} rounded-xl p-5 shadow-card`}
                 >
-                  <div
-                    className={`inline-flex rounded-xl px-3 py-1.5 mb-3 ${app.color}`}
-                  >
-                    <span className={`font-bold text-sm ${app.textColor}`}>
-                      {app.name}
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div>
+                      <div
+                        className={`inline-flex rounded-xl px-3 py-1.5 mb-1 ${app.color}`}
+                      >
+                        <span className={`font-bold text-sm ${app.textColor}`}>
+                          {app.name}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground font-medium">
+                        {app.tagline}
+                      </p>
+                    </div>
+                    <span
+                      className={`text-xs font-semibold ${app.textColor} shrink-0`}
+                    >
+                      {app.users}
                     </span>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                     {app.feature}
                   </p>
-                  <span className="text-xs font-medium text-primary">
-                    {app.users}
-                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    <a
+                      href={app.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors"
+                    >
+                      <ExternalLink className="h-3 w-3" /> Official Site
+                    </a>
+                    <a
+                      href={app.playStore}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold bg-muted text-foreground px-3 py-1.5 rounded-lg hover:bg-muted/70 transition-colors"
+                    >
+                      <Smartphone className="h-3 w-3" /> Android
+                    </a>
+                    <a
+                      href={app.appStore}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold bg-muted text-foreground px-3 py-1.5 rounded-lg hover:bg-muted/70 transition-colors"
+                    >
+                      <Smartphone className="h-3 w-3" /> iOS
+                    </a>
+                  </div>
                 </motion.div>
               ))}
             </div>
+
+            {/* Banking Apps */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="mb-10"
+            >
+              <h2 className="font-display text-2xl font-bold text-foreground mb-2">
+                Official Banking Apps
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4">
+                Access your bank account securely from official bank portals —
+                never use third-party links.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {BANKING_APPS.map((b) => (
+                  <div
+                    key={b.bank}
+                    className={`${b.bg} border ${b.border} rounded-xl p-4 flex items-start gap-4`}
+                  >
+                    <div
+                      className={`rounded-xl p-2.5 bg-white dark:bg-black/20 shrink-0 border ${b.border}`}
+                    >
+                      <span className={`font-bold text-sm ${b.color}`}>
+                        {b.bank}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className={`font-semibold text-sm ${b.color} mb-0.5`}>
+                        {b.app}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+                        {b.desc}
+                      </p>
+                      <a
+                        href={b.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+                      >
+                        <ExternalLink className="h-3 w-3" />{" "}
+                        {b.url.replace("https://", "").replace(/\/$/, "")}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
 
             {/* QR payments */}
             <motion.div
@@ -337,6 +515,7 @@ export default function DigitalPayments() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
+              className="mb-10"
             >
               <h2 className="font-display text-2xl font-bold text-foreground mb-4">
                 Safe Online Transactions
@@ -360,6 +539,53 @@ export default function DigitalPayments() {
                   correctly. The weakest link is always the human — never share
                   credentials.
                 </p>
+              </div>
+            </motion.div>
+
+            {/* Official Regulator Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-display text-2xl font-bold text-foreground mb-2">
+                Official & Regulatory Links
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4">
+                Trusted government and regulatory sources for digital payments
+                in India.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {REGULATOR_LINKS.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-card border border-border hover:border-primary/40 rounded-xl p-4 flex items-start gap-3 transition-all hover:shadow-md"
+                  >
+                    <div className="bg-primary/10 rounded-lg p-2 shrink-0 group-hover:bg-primary/20 transition-colors">
+                      <ExternalLink className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">
+                          {link.name}
+                        </h3>
+                        <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded font-medium shrink-0">
+                          {link.badge}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {link.desc}
+                      </p>
+                      <p className="text-xs text-primary mt-1.5 font-medium">
+                        {link.url.replace("https://", "")}
+                      </p>
+                    </div>
+                  </a>
+                ))}
               </div>
             </motion.div>
           </motion.div>

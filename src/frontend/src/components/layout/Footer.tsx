@@ -3,10 +3,6 @@ import { Github, Linkedin, TrendingUp, Twitter, Youtube } from "lucide-react";
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const hostname =
-    typeof window !== "undefined"
-      ? encodeURIComponent(window.location.hostname)
-      : "";
 
   return (
     <footer className="bg-navy-dark border-t border-white/10 text-white">
@@ -19,7 +15,7 @@ export function Footer() {
                 <TrendingUp className="h-5 w-5 text-white" />
               </div>
               <span className="font-display font-bold text-lg">
-                FinLit India
+                cashindia.com
               </span>
             </div>
             <p className="text-white/60 text-sm leading-relaxed">
@@ -161,21 +157,33 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-white/50 text-sm">
-            &copy; {year}. Built with \u2764\uFE0F using{" "}
-            <a
-              href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${hostname}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:text-primary/80 transition-colors"
-            >
-              caffeine.ai
-            </a>
-          </p>
-          <div className="flex gap-4 text-xs text-white/40">
-            <span>Financial Literacy in India</span>
-            <span>Academic Project Portfolio</span>
+        {/* Developer Credit - Big & Visible */}
+        <div className="mt-10 pt-8 border-t border-white/10">
+          <div className="text-center mb-6">
+            <p className="text-white/40 text-xs uppercase tracking-widest mb-2">
+              Designed &amp; Developed by
+            </p>
+            <p className="text-2xl sm:text-3xl font-bold text-white tracking-wide">
+              VCACS Students
+            </p>
+            <p className="text-primary font-medium text-sm mt-1">
+              Vishwakarma College of Arts, Commerce &amp; Science, Pune
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 border-t border-white/10">
+            <p className="text-white/50 text-sm">
+              &copy; {year} cashindia.com. All rights reserved.
+            </p>
+            <div className="flex gap-4 text-xs text-white/40 items-center">
+              <span>Financial Literacy in India</span>
+              <a
+                href="/sitemap"
+                className="text-xs text-white/40 hover:text-white underline transition-colors"
+              >
+                Site Map
+              </a>
+            </div>
           </div>
         </div>
       </div>

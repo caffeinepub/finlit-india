@@ -1,10 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Bookmark, Search } from "lucide-react";
+import { Bookmark, Lightbulb, Search } from "lucide-react";
 import { motion } from "motion/react";
 import { useMemo, useState } from "react";
 import { PageHeader } from "../components/common/PageHeader";
 import { SchemeCard } from "../components/schemes/SchemeCard";
+import { useLanguage } from "../contexts/LanguageContext";
 import { GOVERNMENT_SCHEMES } from "../data/schemes";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
@@ -24,6 +25,7 @@ export default function Schemes() {
     "finlit-bookmarks",
     [],
   );
+  const { t } = useLanguage();
 
   const filtered = useMemo(() => {
     return GOVERNMENT_SCHEMES.filter((s) => {
@@ -49,19 +51,41 @@ export default function Schemes() {
   return (
     <div>
       <PageHeader
-        title="Government Financial Schemes"
-        subtitle="Explore and bookmark India's key government-backed financial schemes for every citizen"
+        title={t.schemes.title}
+        subtitle={t.schemes.subtitle}
         badge="Schemes"
       />
 
       <div className="container mx-auto px-4 py-10">
+        {/* Real Tip Callout */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mb-8 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-5 flex gap-4"
+        >
+          <div className="shrink-0 mt-0.5">
+            <div className="bg-amber-100 dark:bg-amber-800/40 rounded-xl p-2">
+              <Lightbulb className="h-5 w-5 text-amber-600" />
+            </div>
+          </div>
+          <div>
+            <p className="font-semibold text-amber-900 dark:text-amber-200 text-sm mb-1">
+              {t.schemes.realTipTitle}
+            </p>
+            <p className="text-amber-800 dark:text-amber-300 text-sm leading-relaxed">
+              {t.schemes.realTipDesc}
+            </p>
+          </div>
+        </motion.div>
+
         {/* Search & Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               data-ocid="schemes.search_input"
-              placeholder="Search schemes by name, category..."
+              placeholder={t.schemes.searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
@@ -87,7 +111,7 @@ export default function Schemes() {
               key={cat}
               data-ocid="schemes.tab"
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border min-h-[36px] ${
                 activeCategory === cat
                   ? "bg-primary text-primary-foreground border-primary"
                   : "bg-card text-muted-foreground border-border hover:border-primary hover:text-primary"

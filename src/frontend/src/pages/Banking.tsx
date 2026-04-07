@@ -3,8 +3,10 @@ import {
   BadgeCheck,
   Banknote,
   CreditCard,
+  ExternalLink,
   Globe,
   Landmark,
+  Lightbulb,
   Lock,
   Percent,
   Smartphone,
@@ -12,6 +14,7 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 import { PageHeader } from "../components/common/PageHeader";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const ACCOUNT_TYPES = [
   {
@@ -32,7 +35,7 @@ const ACCOUNT_TYPES = [
   },
   {
     title: "Fixed Deposit (FD)",
-    desc: "Lock a lump sum for a fixed period (7 days–10 years). Earns 5–8% p.a. DICGC insured up to ₹5 lakh.",
+    desc: "Lock a lump sum for a fixed period (7 days–10 years). Earns 5–8% p.a. DICGC insured up to \u20b95 lakh.",
     icon: Lock,
     color: "text-green-600",
     bg: "bg-green-100 dark:bg-green-900/30",
@@ -50,7 +53,7 @@ const ACCOUNT_TYPES = [
 
 const DOCS_REQUIRED = [
   "Aadhaar Card (mandatory for KYC)",
-  "PAN Card (for transactions above ₹50,000)",
+  "PAN Card (for transactions above \u20b950,000)",
   "Recent passport-size photograph",
   "Address proof (Aadhaar / Utility bill)",
   "Mobile number linked to Aadhaar",
@@ -66,14 +69,14 @@ const CARD_TYPES = [
   },
   {
     title: "Debit Card",
-    desc: "Spend directly from your bank balance. Works online and offline. No debt incurred — you spend what you have.",
+    desc: "Spend directly from your bank balance. Works online and offline. No debt incurred \u2014 you spend what you have.",
     icon: BadgeCheck,
     color: "text-green-600",
     bg: "bg-green-100 dark:bg-green-900/30",
   },
   {
     title: "Credit Card",
-    desc: "Borrow from the bank and repay later. Interest-free if paid in full by due date. ~36–42% interest if you pay minimum only.",
+    desc: "Borrow from the bank and repay later. Interest-free if paid in full by due date. ~36\u201342% interest if you pay minimum only.",
     icon: AlertCircle,
     color: "text-red-600",
     bg: "bg-red-100 dark:bg-red-900/30",
@@ -85,35 +88,42 @@ const BANKING_APPS = [
     bank: "SBI",
     app: "YONO SBI",
     feature: "Full banking + investments + loans",
+    url: "https://www.onlinesbi.sbi/",
   },
   {
     bank: "HDFC",
     app: "HDFC NetBanking / MyApps",
     feature: "Fast transfers, credit card management",
+    url: "https://netbanking.hdfcbank.com/",
   },
   {
     bank: "ICICI",
     app: "iMobile Pay",
     feature: "Works even for non-ICICI customers",
+    url: "https://www.icicibank.com/personal-banking/insta-banking/mobile-banking/imobile-pay",
   },
   {
     bank: "Kotak",
     app: "Kotak Mobile Banking",
     feature: "811 zero-balance account via app",
+    url: "https://www.kotak.com/en/personal-banking/digital-banking/811.html",
   },
   {
     bank: "All Banks",
     app: "BHIM App",
     feature: "RBI-backed UPI app for all banks",
+    url: "https://www.bhimupi.org.in/",
   },
 ];
 
 export default function Banking() {
+  const { t } = useLanguage();
+
   return (
     <div>
       <PageHeader
-        title="Banking System in India"
-        subtitle="Understanding bank accounts, cards, interest rates, and digital banking — your gateway to financial inclusion"
+        title={t.banking.title}
+        subtitle={t.banking.subtitle}
         badge="Banking"
       />
 
@@ -141,6 +151,26 @@ export default function Banking() {
             </div>
           </motion.div>
 
+          {/* Real Life Story */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="mb-10 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-5"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xs font-semibold bg-emerald-100 dark:bg-emerald-800/40 text-emerald-700 dark:text-emerald-300 px-2.5 py-0.5 rounded-full">
+                {t.common.realLifeStory}
+              </span>
+            </div>
+            <h3 className="font-display font-semibold text-emerald-900 dark:text-emerald-200 mb-2 text-sm">
+              {t.banking.realStoryTitle}
+            </h3>
+            <p className="text-emerald-800 dark:text-emerald-300 text-sm leading-relaxed">
+              {t.banking.realStoryDesc}
+            </p>
+          </motion.div>
+
           {/* Account Types */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -150,7 +180,7 @@ export default function Banking() {
             className="mb-12"
           >
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">
-              Types of Bank Accounts
+              {t.banking.accountTypesTitle}
             </h2>
             <div className="grid sm:grid-cols-2 gap-5">
               {ACCOUNT_TYPES.map((acc, i) => (
@@ -194,7 +224,7 @@ export default function Banking() {
             className="mb-12"
           >
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">
-              How to Open a Bank Account
+              {t.banking.howToOpenTitle}
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-card border border-border rounded-xl p-6">
@@ -225,8 +255,8 @@ export default function Banking() {
                   {[
                     "No minimum balance required",
                     "Free RuPay debit card",
-                    "₹10,000 overdraft facility",
-                    "Accident insurance of ₹2 lakh",
+                    "\u20b910,000 overdraft facility",
+                    "Accident insurance of \u20b92 lakh",
                     "Direct benefit transfer eligible",
                   ].map((f) => (
                     <li
@@ -251,7 +281,7 @@ export default function Banking() {
             className="mb-12"
           >
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">
-              ATM, Debit Card & Credit Card
+              {t.banking.cardsTitle}
             </h2>
             <div className="grid md:grid-cols-3 gap-5">
               {CARD_TYPES.map((c, i) => (
@@ -285,38 +315,68 @@ export default function Banking() {
             viewport={{ once: true }}
           >
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">
-              Net Banking & Mobile Banking
+              {t.banking.netBankingTitle}
             </h2>
-            <div className="bg-card border border-border rounded-xl overflow-hidden">
-              <div className="flex items-center gap-3 p-4 border-b border-border bg-muted/30">
-                <Smartphone className="h-5 w-5 text-primary" />
-                <span className="font-semibold text-foreground text-sm">
-                  Popular Banking Apps in India
-                </span>
-              </div>
-              <div className="divide-y divide-border">
-                {BANKING_APPS.map((row) => (
-                  <div
-                    key={row.app}
-                    className="grid grid-cols-3 gap-4 px-4 py-3 text-sm"
-                  >
-                    <span className="font-medium text-foreground">
-                      {row.bank}
-                    </span>
-                    <span className="text-primary font-medium">{row.app}</span>
-                    <span className="text-muted-foreground">{row.feature}</span>
+
+            {/* Mobile-friendly card list */}
+            <div className="space-y-3 mb-4">
+              {BANKING_APPS.map((row, i) => (
+                <motion.div
+                  key={row.app}
+                  initial={{ opacity: 0, x: -15 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.06 }}
+                  viewport={{ once: true }}
+                  className="bg-card border border-border rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="bg-primary/10 rounded-lg p-2 shrink-0">
+                      <Smartphone className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-semibold text-foreground text-sm">
+                          {row.bank}
+                        </span>
+                        <a
+                          href={row.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-primary font-medium text-sm hover:underline"
+                        >
+                          {row.app}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {row.feature}
+                      </p>
+                    </div>
                   </div>
-                ))}
-              </div>
+                </motion.div>
+              ))}
             </div>
+
             <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl flex gap-3">
               <Globe className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
               <p className="text-sm text-blue-800 dark:text-blue-200">
                 <strong>Security tip:</strong> Always use official bank apps
                 downloaded from Play Store / App Store. Enable 2-factor
-                authentication. Never share OTP or password with anyone —
-                including someone claiming to be from the bank.
+                authentication. Never share OTP or password with anyone.
               </p>
+            </div>
+
+            {/* Try This Today */}
+            <div className="mt-6 p-5 bg-primary/5 border border-primary/20 rounded-xl flex gap-3">
+              <Lightbulb className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-foreground text-sm mb-1">
+                  {t.banking.tryTodayLabel}
+                </p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {t.banking.tryTodayDesc}
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
